@@ -54,5 +54,5 @@ https://github.com/0xDamian
 
 https://github.com/0xDamian
 
-# Liscence
+# License
 I don't care. Do what you want with it.
