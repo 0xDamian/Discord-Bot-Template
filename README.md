@@ -41,6 +41,7 @@ $ cd Discord-Bot-Template
 
 # Contributors
 Giving a special thanks to the contributors. They have helped a lot with this project. Support them by checking out their profiles:
+
 https://github.com/0xDamian
 
 https://github.com/0xDamian
