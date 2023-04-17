@@ -3,6 +3,7 @@ import discord
 import asyncio
 import os
 from discord.ext import commands
+from dotenv import load_dotenv
 
 intents = discord.Intents.all()
 client = commands.Bot(intents=intents, command_prefix='!', help_command=None)
@@ -46,5 +47,6 @@ async def reload(ctx, extension):
 """
 client.run('abcd.1234.ABCD')
 """
+load_dotenv()
 client.run(os.getenv('TOKEN'))
 
