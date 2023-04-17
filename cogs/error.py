@@ -27,6 +27,7 @@ class ErrorCog(commands.Cog, name='Error'):
             await ctx.send(embed=embed)
 
 
-async def setup(client):
+async def setup(client, ctx):
     await client.add_cog(ErrorCog(client))
+    await ctx.send("Error Loaded")
     print("Error Loaded")
