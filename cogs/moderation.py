@@ -91,7 +91,6 @@ class Moderation(commands.Cog):
         )
 
 
-async def setup(client, ctx):
+async def setup(client):
     await client.add_cog(Moderation(client))
-    await ctx.send("Moderation Loaded")
     print("Moderation Loaded")
