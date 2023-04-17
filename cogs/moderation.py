@@ -22,6 +22,26 @@ class Moderation(commands.Cog):
     async def on_member_remove(self, ctx, member):
         await ctx(f'{member} has left the server')
 
+    @commands.command(name='help')
+    async def help(self, ctx, cog=None):
+        if cog is not None:
+            for cog_class in self.bot.cogs.values():
+                if cog_class.qualified_name.lower() == cog.lower():
+                    commands = cog_class.get_commands()
+                    embed = discord.Embed(title=f"{cog_class.qualified_name} Commands", description="", color=discord.Color.blurple())
+                    for command in commands:
+                        if not command.hidden:
+                            embed.add_field(name=f"**{command.name}**", value=command.help, inline=False)
+                    await ctx.send(embed=embed)
+                    return
+            await ctx.send(f"I'm sorry, I couldn't find a cog named '{cog}'.")
+        else:
+            embed = discord.Embed(title="Help", description="List of available cogs:", color=discord.Color.blurple())
+            for cog in self.bot.cogs.values():
+                if cog.qualified_name.lower() != "help":
+                    embed.add_field(name=cog.qualified_name, value=cog.description, inline=False)
+            await ctx.send(embed=embed)
+            
     @commands.command(name="ping",
                       description="Shows my ping.",
                       usage=""
