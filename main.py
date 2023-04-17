@@ -14,7 +14,7 @@ async def load(ctx, extension):
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
             await client.load_extension(f'cogs.{filename[:-3]}')
-            await ctx.send(f'`[+] {filename} loaded` :ballot_box_with_check:')
+            await ctx.send(f'`[+] {filename[:-3]} loaded` :ballot_box_with_check:')
             
 # E no really concern me sha, 
 # but if you want the cogs to load without having to type in a command, meaning loading the cogs as the bot starts up
