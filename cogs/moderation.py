@@ -25,7 +25,7 @@ class Moderation(commands.Cog):
     @commands.command(name='help')
     async def help(self, ctx, cog=None):
         if cog is not None:
-            for cog_class in self.bot.cogs.values():
+            for cog_class in self.client.cogs.values():
                 if cog_class.qualified_name.lower() == cog.lower():
                     commands = cog_class.get_commands()
                     embed = discord.Embed(title=f"{cog_class.qualified_name} Commands", description="", color=discord.Color.blurple())
@@ -41,7 +41,7 @@ class Moderation(commands.Cog):
                 if cog.qualified_name.lower() != "help":
                     embed.add_field(name=cog.qualified_name, value=cog.description, inline=False)
             await ctx.send(embed=embed)
-            
+
     @commands.command(name="ping",
                       description="Shows my ping.",
                       usage=""
