@@ -13,6 +13,7 @@ class Moderation(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print('Bot is Online')
+        
 
     @commands.Cog.listener()
     async def on_member_join(self, ctx, member):
@@ -55,11 +56,12 @@ class Moderation(commands.Cog):
       embed = discord.Embed(title=None,description=f'My ping is: {ping}ms',color=0x2874A6)
       await channel.send(embed=embed)
 
+    
+
     # Commands for moderation
     @commands.command()
     async def clear(self, ctx, amount=5):
         await ctx.channel.purge(limit=amount + 1)
-        await ctx.send(f'{amount} messages were deleted')
 
     @commands.command()
     async def kick(self, ctx, member: discord.Member, *, reason=None):
