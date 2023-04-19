@@ -62,9 +62,9 @@ class Moderation(commands.Cog):
         embed.add_field(name="Rule 1", value="Be respectful: Treat all members with respect and refrain from using any derogatory language or making personal attacks.")
         embed.add_field(name="Rule 2", value="No spamming: Avoid flooding the chat with repeated messages or links. If you have something to share, do it once and wait for others to respond.")
         embed.add_field(name="Rule 3", value="No NSFW content: Do not share any explicit or offensive content that may be considered not safe for work. This includes links, images, or any other media.")
-        embed.add_field(name="Rule 5", value="Follow Discord's ToS: Abide by the Discord's terms of service and community guidelines. Any violation of these rules can result in being kicked out of the server.")
-        embed.add_field(name="Rule 6", value="Ask for help politely: If you need help, ask for it politely and wait for someone to respond. Do not demand or spam for assistance.")
-        embed.add_field(name="Rule 7", value="Report any rule-breaking: If you see any member violating the rules, report it to the server admin or moderators immediately. Do not take matters into your own hands.")
+        embed.add_field(name="Rule 4", value="Follow Discord's ToS: Abide by the Discord's terms of service and community guidelines. Any violation of these rules can result in being kicked out of the server.")
+        embed.add_field(name="Rule 5", value="Ask for help politely: If you need help, ask for it politely and wait for someone to respond. Do not demand or spam for assistance.")
+        embed.add_field(name="Rule 6", value="Report any rule-breaking: If you see any member violating the rules, report it to the server admin or moderators immediately. Do not take matters into your own hands.")
         embed.set_footer(text="Breaking the rules may result in a warning or a ban. The owner and admins preserves the right to change the rules when deemed fit.")
         await ctx.send(embed=embed)
 
