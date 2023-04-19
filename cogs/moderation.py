@@ -58,7 +58,7 @@ class Moderation(commands.Cog):
 
     @commands.command()
     async def rule(self, ctx):
-        embed = discord.Embed(title="Server Rules", color=discord.Color.black())
+        embed = discord.Embed(title="Server Rules", color=0x4378)
         embed.add_field(name="Rule 1", value="Be respectful: Treat all members with respect and refrain from using any derogatory language or making personal attacks.")
         embed.add_field(name="Rule 2", value="No spamming: Avoid flooding the chat with repeated messages or links. If you have something to share, do it once and wait for others to respond.")
         embed.add_field(name="Rule 3", value="No NSFW content: Do not share any explicit or offensive content that may be considered not safe for work. This includes links, images, or any other media.")
