@@ -39,3 +39,4 @@ class LinkFilterView(ui.View):
 
 def setup(client):
     client.add_cog(LinkFilter(client))
+    print("Moderation Loaded")
