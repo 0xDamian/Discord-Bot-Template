@@ -22,22 +22,21 @@ class LinkFilterView(ui.View):
         self.author = author
         self.content = content
         self.channels = channels
+        self.add_item(ui.Select(placeholder="Select a channel", options=[ui.SelectOption(label=str(channel), value=str(channel)) for channel in channels], callback=self.select_callback))
+        self.add_item(ui.Button(label="Allow", style=ButtonStyle.green, callback=self.allow_button))
+        self.add_item(ui.Button(label="Deny", style=ButtonStyle.red, callback=self.deny_button))
 
-    @ui.select(placeholder="Select a channel", options=[ui.SelectOption(label=str(channel), value=str(channel)) for channel in self.channels])
     async def select_callback(self, select: ui.Select, interaction: Interaction):
         channel = self.client.get_channel(int(select.values[0]))
         await channel.send(f"{self.content} (posted by {self.author.mention})")
         await interaction.response.send_message("Link approved and posted in selected channel.", ephemeral=True)
 
-    @ui.button(label="Allow", style=ButtonStyle.green)
     async def allow_button(self, button: ui.Button, interaction: Interaction):
         await interaction.response.send_message("Please select a channel from the dropdown menu.", ephemeral=True)
 
-    @ui.button(label="Deny", style=ButtonStyle.red)
     async def deny_button(self, button: ui.Button, interaction: Interaction):
         await self.author.send("Your link has been denied by the staff.")
         await interaction.response.send_message("Link denied and warning sent to original poster.", ephemeral=True)
 
 def setup(client):
     client.add_cog(LinkFilter(client))
-    print("LinkFilter cog loaded")
