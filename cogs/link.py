@@ -4,20 +4,21 @@ from discord import ui, ButtonStyle, Interaction
 class LinkFilter(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.staff_channel_id = 1106677152289656852 # Replace with your staff channel ID
-        self.channels = [1106652682946621460, 1095816946466967686, 1095818905215316088, 1099517647114227723] # Replace with your list of channel IDs for the dropdown menu
+        self.staff_channel_id = 123456789 # Replace with your staff channel ID
+        self.channels = [123456789, 987654321] # Replace with your list of channel IDs for the dropdown menu
 
     @commands.Cog.listener()
     async def on_message(self, message):
         if "http" in message.content:
             await message.delete()
             staff_channel = self.client.get_channel(self.staff_channel_id)
-            view = LinkFilterView(message.author, message.content, self.channels)
+            view = LinkFilterView(self.client, message.author, message.content, self.channels)
             await staff_channel.send(f"Link posted by {message.author.mention}: {message.content}", view=view)
 
 class LinkFilterView(ui.View):
-    def __init__(self, author, content, channels):
+    def __init__(self, client, author, content, channels):
         super().__init__()
+        self.client = client
         self.author = author
         self.content = content
         self.channels = channels
@@ -39,4 +40,4 @@ class LinkFilterView(ui.View):
 
 def setup(client):
     client.add_cog(LinkFilter(client))
-    print("Moderation Loaded")
+    print("LinkFilter cog loaded")
