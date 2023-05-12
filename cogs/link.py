@@ -10,7 +10,10 @@ class LinkFilter(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if "http" in message.content:
-            await message.delete()
+            try:
+                await message.delete()
+            except:
+                pass
             staff_channel = self.client.get_channel(self.staff_channel_id)
             view = LinkFilterView(self.client, message.author, message.content, self.channels)
             await staff_channel.send(f"Link posted by {message.author.mention}: {message.content}", view=view)
