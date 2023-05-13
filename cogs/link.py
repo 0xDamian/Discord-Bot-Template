@@ -41,5 +41,5 @@ class LinkFilterView(ui.View):
         await self.author.send("Your link has been denied by the staff.")
         await interaction.response.send_message("Link denied and warning sent to original poster.", ephemeral=True)
 
-async def setup(client):
-    await client.add_cog(LinkFilter(client))
+def setup(client):
+    client.add_cog(LinkFilter(client))
