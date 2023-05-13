@@ -1,5 +1,5 @@
 from discord.ext import commands
-from discord import ui, ButtonStyle, Interaction
+from discord import ui, ButtonStyle, Interaction, SelectOption
 
 class LinkFilter(commands.Cog):
     def __init__(self, client):
@@ -25,7 +25,7 @@ class LinkFilterView(ui.View):
         self.author = author
         self.content = content
         self.channels = channels
-        self.add_item(ui.Select(placeholder="Select a channel", options=[ui.SelectOption(label=str(channel), value=str(channel)) for channel in channels], callback=self.select_callback))
+        self.add_item(ui.Select(placeholder="Select a channel", options=[SelectOption(label=str(channel), value=str(channel)) for channel in channels], callback=self.select_callback))
         self.add_item(ui.Button(label="Allow", style=ButtonStyle.green, callback=self.allow_button))
         self.add_item(ui.Button(label="Deny", style=ButtonStyle.red, callback=self.deny_button))
 
@@ -43,4 +43,3 @@ class LinkFilterView(ui.View):
 
 async def setup(client):
     await client.add_cog(LinkFilter(client))
-    print("LinkFilter Loaded")
