@@ -4,8 +4,8 @@ from discord import ui, ButtonStyle, Interaction
 class LinkFilter(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.staff_channel_id = 123456789 # Replace with your staff channel ID
-        self.channels = [123456789, 987654321] # Replace with your list of channel IDs for the dropdown menu
+        self.staff_channel_id = 1106677152289656852 # Replace with your staff channel ID
+        self.channels = [1106652682946621460, 1095816946466967686, 1095818905215316088, 1099517647114227723] # Replace with your list of channel IDs for the dropdown menu
 
     @commands.Cog.listener()
     async def on_message(self, message):
