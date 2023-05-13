@@ -47,5 +47,5 @@ class ChannelSelect(ui.Select):
     def __init__(self, channels):
         super().__init__(placeholder="Select a channel", options=[SelectOption(label=str(channel), value=str(channel)) for channel in channels])
 
-async def setup(client):
-    await client.add_cog(LinkFilter(client))
+def setup(client):
+    client.add_cog(LinkFilter(client))
