@@ -25,7 +25,9 @@ class LinkFilterView(ui.View):
         self.author = author
         self.content = content
         self.channels = channels
-        self.add_item(ui.Select(placeholder="Select a channel", options=[SelectOption(label=str(channel), value=str(channel)) for channel in channels], callback=self.select_callback))
+        select = ChannelSelect(channels)
+        select.callback = self.select_callback
+        self.add_item(select)
         self.add_item(ui.Button(label="Allow", style=ButtonStyle.green, callback=self.allow_button))
         self.add_item(ui.Button(label="Deny", style=ButtonStyle.red, callback=self.deny_button))
 
@@ -41,6 +43,9 @@ class LinkFilterView(ui.View):
         await self.author.send("Your link has been denied by the staff.")
         await interaction.response.send_message("Link denied and warning sent to original poster.", ephemeral=True)
 
+class ChannelSelect(ui.Select):
+    def __init__(self, channels):
+        super().__init__(placeholder="Select a channel", options=[SelectOption(label=str(channel), value=str(channel)) for channel in channels])
+
 async def setup(client):
     await client.add_cog(LinkFilter(client))
-    print("LinkFIler Loaded")
