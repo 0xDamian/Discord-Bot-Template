@@ -11,7 +11,7 @@ class News(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.channel_id = 1095818905215316088
-        self.url = 'https://newsapi.org/v2/top-headlines?q=cybersecurity&sources=google-news&apiKey=YOUR_API_KEY' # Replace with your API key
+        self.url = f'https://newsapi.org/v2/top-headlines?q=cybersecurity&sources=google-news&apiKey={api_key}' # Create environment variable
         self.post_news.start()
 
     def cog_unload(self):
@@ -30,5 +30,6 @@ class News(commands.Cog):
     async def before_post_news(self):
         await self.client.wait_until_ready()
 
-def setup(client):
-    client.add_cog(News(client))
+async def setup(client):
+    await client.add_cog(News(client))
+    print("News Loaded")
