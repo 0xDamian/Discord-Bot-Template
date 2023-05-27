@@ -1,11 +1,16 @@
 import discord
 from discord.ext import commands, tasks
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+api_key = os.environ['GOOGLE_NEWS_API_KEY']
 
 class News(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.channel_id = 123456789 # Replace with the ID of the channel you want to post news to
+        self.channel_id = 1095818905215316088
         self.url = 'https://newsapi.org/v2/top-headlines?q=cybersecurity&sources=google-news&apiKey=YOUR_API_KEY' # Replace with your API key
         self.post_news.start()
 
