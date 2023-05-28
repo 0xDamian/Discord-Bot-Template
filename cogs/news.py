@@ -30,6 +30,7 @@ class NewsCog(commands.Cog):
             conn.request("GET", "/search?q=Cyber%20Security&lang=en&country=US", headers=headers)
             res = conn.getresponse()
             data = res.read()
+            print(data)
             # Load API response into a Python dictionary object
             json_dictionary = json.loads(data.decode("utf-8"))
             # Loop through dictionary keys to access each article
