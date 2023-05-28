@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands, tasks
-import http.client
-import json
+import requests
 import os
 from dotenv import load_dotenv
 
@@ -22,17 +21,14 @@ class NewsCog(commands.Cog):
         channel = self.client.get_channel(self.channel_id)
         if channel:
             # Connect to the Google News API
-            conn = http.client.HTTPSConnection("google-news-api1.p.rapidapi.com")
+            url = "https://google-news-api1.p.rapidapi.com/search"
+            querystring = {"language": "EN", "q": "Cyber Security"}
             headers = {
-                'x-rapidapi-host': "google-news-api1.p.rapidapi.com",
-                'x-rapidapi-key': RAPIDAPI_KEY
+                "X-RapidAPI-Key": RAPIDAPI_KEY,
+                "X-RapidAPI-Host": "google-news-api1.p.rapidapi.com"
             }
-            conn.request("GET", "/search?language=EN&q=Cyber%20Security", headers=headers)
-            res = conn.getresponse()
-            data = res.read()
-            print(data)
-            # Load API response into a Python dictionary object
-            json_dictionary = json.loads(data.decode("utf-8"))
+            response = requests.get(url, headers=headers, params=querystring)
+            json_dictionary = response.json()
             # Loop through dictionary keys to access each article
             for item in json_dictionary['articles']:
                 # Pull the title and url for this article into variables.
