@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands, tasks
-import http.client
-import json
+import aiohttp
 import os
 from dotenv import load_dotenv
 
@@ -21,25 +20,17 @@ class NewsCog(commands.Cog):
     async def news_task(self):
         channel = self.client.get_channel(self.channel_id)
         if channel:
-            # Connect to the Google News API
-            conn = http.client.HTTPSConnection("google-news-api1.p.rapidapi.com")
             headers = {
                 'x-rapidapi-host': "google-news-api1.p.rapidapi.com",
                 'x-rapidapi-key': RAPIDAPI_KEY
             }
-            conn.request("GET", "/search?language=EN&q=Cyber%20Security", headers=headers)
-            res = conn.getresponse()
-            data = res.read()
-            print(data)
-            # Load API response into a Python dictionary object
-            json_dictionary = json.loads(data.decode("utf-8"))
-            # Loop through dictionary keys to access each article
-            for item in json_dictionary['news']:
-                # Pull the title and url for this article into variables.
-                title = item['title']
-                url = item['link']
-                # Send the title and url to the specified channel
-                await channel.send(f"{title}\n{url}")
+            async with aiohttp.ClientSession() as session:
+                async with session.get("https://google-news-api1.p.rapidapi.com/search?language=EN&q=Cyber%20Security", headers=headers) as res:
+                    json_dictionary = await res.json()
+                    for item in json_dictionary['news']:
+                        title = item['title']
+                        url = item['link']
+                        await channel.send(f"{title}\n{url}")
 
     @news_task.before_loop
     async def before_news_task(self):
