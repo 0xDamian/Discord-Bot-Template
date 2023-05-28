@@ -27,7 +27,7 @@ class NewsCog(commands.Cog):
                 'x-rapidapi-host': "google-news-api1.p.rapidapi.com",
                 'x-rapidapi-key': RAPIDAPI_KEY
             }
-            conn.request("GET", "/search?q=Cyber%20Security&lang=en&country=US", headers=headers)
+            conn.request("GET", "/v1/search?q=Cyber%20Security&lang=us&country=US", headers=headers)
             res = conn.getresponse()
             data = res.read()
             print(data)
