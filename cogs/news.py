@@ -34,7 +34,7 @@ class NewsCog(commands.Cog):
             # Load API response into a Python dictionary object
             json_dictionary = json.loads(data.decode("utf-8"))
             # Loop through dictionary keys to access each article
-            for item in json_dictionary['articles']:
+            for item in json_dictionary['news']:
                 # Pull the title and url for this article into variables.
                 title = item['title']
                 url = item['link']
