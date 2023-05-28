@@ -1,35 +1,49 @@
 import discord
 from discord.ext import commands, tasks
-import requests
-from dotenv import load_dotenv
+import http.client
+import json
 import os
+from dotenv import load_dotenv
 
 load_dotenv()
-api_key = os.environ['GOOGLE_NEWS_API_KEY']
+RAPIDAPI_KEY = os.getenv('RAPIDAPI_KEY')
 
-class News(commands.Cog):
+class NewsCog(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.channel_id = 1095818905215316088
-        self.url = f'https://newsapi.org/v2/top-headlines?q=cybersecurity&sources=google-news&apiKey={api_key}' # Create environment variable
-        self.post_news.start()
+        self.channel_id = 1095818905215316088 # Replace with the ID of the channel where you want to send the news
+        self.news_task.start()
 
     def cog_unload(self):
-        self.post_news.cancel()
+        self.news_task.cancel()
 
-    @tasks.loop(hours=1) # Set the interval for how often you want to check for new news
-    async def post_news(self):
+    @tasks.loop(hours=1) # Set the time interval between news updates (in this case, 1 hour)
+    async def news_task(self):
         channel = self.client.get_channel(self.channel_id)
-        response = requests.get(self.url)
-        data = response.json()
-        for article in data['articles']:
-            embed = discord.Embed(title=article['title'], url=article['url'], description=article['description'])
-            await channel.send(embed=embed)
+        if channel:
+            # Connect to the Google News API
+            conn = http.client.HTTPSConnection("google-news-api1.p.rapidapi.com")
+            headers = {
+                'x-rapidapi-host': "google-news-api1.p.rapidapi.com",
+                'x-rapidapi-key': RAPIDAPI_KEY
+            }
+            conn.request("GET", "/search?q=Cyber%20Security&lang=en&country=US", headers=headers)
+            res = conn.getresponse()
+            data = res.read()
+            # Load API response into a Python dictionary object
+            json_dictionary = json.loads(data.decode("utf-8"))
+            # Loop through dictionary keys to access each article
+            for item in json_dictionary['articles']:
+                # Pull the title and url for this article into variables.
+                title = item['title']
+                url = item['link']
+                # Send the title and url to the specified channel
+                await channel.send(f"{title}\n{url}")
 
-    @post_news.before_loop
-    async def before_post_news(self):
+    @news_task.before_loop
+    async def before_news_task(self):
         await self.client.wait_until_ready()
 
 async def setup(client):
-    await client.add_cog(News(client))
+    await client.add_cog(NewsCog(client))
     print("News Loaded")
