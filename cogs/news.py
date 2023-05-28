@@ -27,6 +27,7 @@ class NewsCog(commands.Cog):
             async with aiohttp.ClientSession() as session:
                 async with session.get("https://google-news-api1.p.rapidapi.com/search?language=EN&q=Cyber%20Security", headers=headers) as res:
                     json_dictionary = await res.json()
+                    print(json_dictionary)
                     for item in json_dictionary['news']:
                         title = item['title']
                         url = item['link']
