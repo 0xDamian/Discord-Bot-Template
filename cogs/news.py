@@ -34,8 +34,9 @@ class NewsCog(commands.Cog):
                     for item in json_dictionary['articles']:
                         title = item['title']
                         url = item['url']
-                        await channel.send(f"{title}\n{url}")
-                        await asyncio.sleep(15)
+                        published = item['publishedAt']
+                        await channel.send(f"{title} | Date: {published}\n{url}")
+                        await asyncio.sleep(3600)
 
     @news_task.before_loop
     async def before_news_task(self):
