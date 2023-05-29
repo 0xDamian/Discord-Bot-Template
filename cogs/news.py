@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-RAPIDAPI_KEY = os.getenv('RAPIDAPI_KEY')
+NEWSAPI_ORG_API_KEY = os.getenv('NEWSAPI_ORG_API_KEY')
 
 class NewsCog(commands.Cog):
     def __init__(self, client):
@@ -20,17 +20,19 @@ class NewsCog(commands.Cog):
     async def news_task(self):
         channel = self.client.get_channel(self.channel_id)
         if channel:
+            params = {
+                'q': 'Cyber Security',
+                'language': 'en'
+            }
             headers = {
-                'x-rapidapi-host': "google-news-api1.p.rapidapi.com",
-                'x-rapidapi-key': RAPIDAPI_KEY
+                'X-Api-Key': NEWSAPI_ORG_API_KEY
             }
             async with aiohttp.ClientSession() as session:
-                async with session.get("https://google-news-api1.p.rapidapi.com/search?language=EN&q=Cyber%20Security", headers=headers) as res:
+                async with session.get("https://newsapi.org/v2/everything", params=params, headers=headers) as res:
                     json_dictionary = await res.json()
-                    print(json_dictionary)
-                    for item in json_dictionary['news']:
+                    for item in json_dictionary['articles']:
                         title = item['title']
-                        url = item['link']
+                        url = item['url']
                         await channel.send(f"{title}\n{url}")
 
     @news_task.before_loop
