@@ -1,5 +1,5 @@
 # Discord-Bot-Template
-This is a template for a Discord bot written in Python (discord.py v2). It is also an Open-source version of CyberSecHaven Discord bot.
+This is a template for a Discord bot written in Python (discord.py v2). It is also an Open-source version of DAMNSEC Discord bot.
 
 Creating Discord bots can be really nice projects for beginners, that said, this is simply a template. 
 You can read the code and see how it works (Updates to this template will be made).
